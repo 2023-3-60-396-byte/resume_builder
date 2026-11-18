@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block content %}
+<h1>My Resumes</h1>
+{% if not resumes %}<p class="muted">No resumes yet. Create your first one!</p>{% endif %}
+<div class="grid">{% for r in resumes %}
+<div class="card"><h3>{{ r.title }}</h3><p>{{ r.name }}<br><span class="muted">{{ r.email }}</span></p>
+<p class="muted small">Last modified: {{ r.last_modified }}</p>
+<div class="row"><a class="btn sm" href="{{ url_for('preview', rid=r.resume_id) }}">Preview</a>
+<a class="btn sm alt" href="{{ url_for('edit', rid=r.resume_id) }}">Edit</a>
+<a class="btn sm alt" href="{{ url_for('pdf', rid=r.resume_id) }}">PDF</a>
+<form method="post" action="{{ url_for('delete', rid=r.resume_id) }}" onsubmit="return confirm('Delete this resume?')">
+<button class="btn sm danger">Delete</button></form></div></div>{% endfor %}</div>{% endblock %}

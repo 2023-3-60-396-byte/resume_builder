@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block content %}
+<div class="row between"><h1>Resume Preview</h1><div class="row">
+<a class="btn alt" href="{{ url_for('edit', rid=rid) }}">✏️ Edit</a>
+<a class="btn" href="{{ url_for('pdf', rid=rid) }}">⬇ Download PDF</a></div></div>
+<article class="paper">
+<h2>{{ d.name }}</h2><p class="muted">{{ [d.email, d.phone, d.address, d.linkedin]|select|join(' | ') }}</p>
+<h4>Career Objective</h4><p>{{ d.objective }}</p>
+<h4>Education</h4>{% for e in d.education %}<p><b>{{ e.degree }}</b> — {{ e.institution }} ({{ e.year }})<br><span class="muted">{{ e.result }}</span></p>{% endfor %}
+{% if d.experience %}<h4>Professional Experience</h4>{% for e in d.experience %}
+<p><b>{{ e.job_title }}</b>, {{ e.company }} <span class="muted">({{ e.duration }})</span><br>{{ e.responsibilities }}</p>{% endfor %}{% endif %}
+<h4>Skills &amp; Additional Information</h4>
+{% for k, v in d.skills.items() if v %}<p><b>{{ k|capitalize }}:</b> {{ v|join(', ') }}</p>{% endfor %}
+</article>{% endblock %}

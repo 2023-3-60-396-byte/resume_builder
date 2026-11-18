@@ -1,0 +1,40 @@
+{% extends "base.html" %}{% block content %}
+{% macro err(k) %}{% if errors.get(k) %}<small class="err">{{ errors[k] }}</small>{% endif %}{% endmacro %}
+<h1>{{ 'Edit Resume' if mode == 'edit' else 'Create Resume' }}</h1>
+<div class="layout">
+<form id="rf" method="post" novalidate>
+<fieldset><legend>Personal Information</legend>
+<label>Resume title *<input name="title" value="{{ d.title }}" placeholder="e.g. Software Engineer Resume">{{ err('title') }}</label>
+<div class="two"><label>Full name *<input name="name" value="{{ d.name }}">{{ err('name') }}</label>
+<label>Email *<input name="email" type="email" value="{{ d.email }}">{{ err('email') }}</label></div>
+<div class="two"><label>Phone *<input name="phone" value="{{ d.phone }}" placeholder="+8801XXXXXXXXX">{{ err('phone') }}</label>
+<label>LinkedIn<input name="linkedin" value="{{ d.linkedin or '' }}"></label></div>
+<label>Address<input name="address" value="{{ d.address or '' }}"></label>
+<label>Career objective *<textarea name="objective" rows="3">{{ d.objective }}</textarea>{{ err('objective') }}</label></fieldset>
+
+<fieldset><legend>Education *</legend>{{ err('education') }}<div id="edu">
+{% for e in d.education %}<div class="item"><div class="two"><input name="edu_institution" placeholder="Institution" value="{{ e.institution }}"><input name="edu_degree" placeholder="Degree" value="{{ e.degree }}"></div>
+<div class="two"><input name="edu_year" placeholder="Passing year" value="{{ e.year }}"><input name="edu_result" placeholder="Result / CGPA" value="{{ e.result or '' }}"></div>
+<button type="button" class="rm">Remove</button>{{ err('edu' ~ loop.index0) }}</div>{% endfor %}</div>
+<button type="button" class="btn sm alt" data-add="edu">+ Add education</button></fieldset>
+
+<fieldset><legend>Professional Experience</legend><div id="exp">
+{% for e in d.experience %}<div class="item"><div class="two"><input name="exp_company" placeholder="Company" value="{{ e.company }}"><input name="exp_title" placeholder="Position" value="{{ e.job_title }}"></div>
+<input name="exp_duration" placeholder="Duration (e.g. Jan 2022 - Dec 2023)" value="{{ e.duration }}">
+<textarea name="exp_resp" rows="2" placeholder="Responsibilities">{{ e.responsibilities or '' }}</textarea>
+<button type="button" class="rm">Remove</button>{{ err('exp' ~ loop.index0) }}</div>{% endfor %}</div>
+<button type="button" class="btn sm alt" data-add="exp">+ Add experience</button></fieldset>
+
+<fieldset><legend>Skills &amp; Additional Info <small>(comma separated)</small></legend>{{ err('skills') }}
+{% for c, label in [('technical','Technical skills'),('soft','Soft skills'),('language','Languages'),('certification','Certifications'),('other','Other')] %}
+<label>{{ label }}<input name="skills_{{ c }}" value="{{ d.skills[c]|join(', ') }}"></label>{% endfor %}</fieldset>
+<button class="btn" type="submit">💾 Save Resume</button></form>
+
+<aside class="paper live"><h3 class="muted">Live preview</h3><div id="pv"></div></aside></div>
+
+<template id="t-edu"><div class="item"><div class="two"><input name="edu_institution" placeholder="Institution"><input name="edu_degree" placeholder="Degree"></div>
+<div class="two"><input name="edu_year" placeholder="Passing year"><input name="edu_result" placeholder="Result / CGPA"></div><button type="button" class="rm">Remove</button></div></template>
+<template id="t-exp"><div class="item"><div class="two"><input name="exp_company" placeholder="Company"><input name="exp_title" placeholder="Position"></div>
+<input name="exp_duration" placeholder="Duration (e.g. Jan 2022 - Dec 2023)"><textarea name="exp_resp" rows="2" placeholder="Responsibilities"></textarea><button type="button" class="rm">Remove</button></div></template>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/form.js') }}"></script>{% endblock %}

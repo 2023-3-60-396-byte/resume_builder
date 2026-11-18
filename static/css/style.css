@@ -1,0 +1,18 @@
+:root{--p:#1e3a8a;--bg:#f1f5f9;--bd:#cbd5e1;--mut:#64748b}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:#0f172a}
+.top{display:flex;justify-content:space-between;align-items:center;padding:12px 24px;background:var(--p)}
+.brand{color:#fff;font-weight:700;font-size:1.2rem;text-decoration:none}.wrap{max-width:1200px;margin:24px auto;padding:0 16px}
+.btn{display:inline-block;background:var(--p);color:#fff;border:0;padding:10px 18px;border-radius:8px;cursor:pointer;text-decoration:none;font-size:.95rem}
+.top .btn{background:#fff;color:var(--p)}.btn.alt{background:#fff;color:var(--p);border:1px solid var(--p)}.btn.danger{background:#dc2626}.btn.sm{padding:6px 12px;font-size:.85rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.card,.paper,fieldset{background:#fff;border:1px solid var(--bd);border-radius:12px;padding:18px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.between{justify-content:space-between}
+.muted{color:var(--mut)}.small{font-size:.8rem}.flash{padding:10px 14px;border-radius:8px;margin-bottom:12px}.flash.ok{background:#dcfce7}.flash.err{background:#fee2e2}
+.layout{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;align-items:start}.live{position:sticky;top:12px;max-height:90vh;overflow:auto}
+fieldset{margin:0 0 16px}legend{font-weight:700;color:var(--p);padding:0 6px}
+label{display:block;margin-bottom:10px;font-weight:600;font-size:.88rem}
+input,textarea{width:100%;padding:9px 10px;border:1px solid var(--bd);border-radius:8px;font:inherit;margin-top:4px;margin-bottom:6px}
+input:focus,textarea:focus{outline:2px solid #93c5fd}.bad{border-color:#dc2626}.err{color:#dc2626;display:block;font-weight:400}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.item{border:1px dashed var(--bd);padding:10px;border-radius:8px;margin-bottom:10px}
+.rm{background:none;border:0;color:#dc2626;cursor:pointer}.paper h2{margin:0;color:var(--p)}.paper h4{margin:14px 0 4px;color:var(--p);border-bottom:1px solid var(--bd);text-transform:uppercase;font-size:.85rem}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.live{position:static}.two{grid-template-columns:1fr}}
